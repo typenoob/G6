@@ -1,6 +1,6 @@
 {
   "name": "@antv/g6-ssr",
-  "version": "0.0.20",
+  "version": "0.1.0",
   "description": "Support SSR for G6",
   "keywords": [
     "antv",
@@ -39,6 +39,5 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },
-  "type11": "module"
+  }
 }
