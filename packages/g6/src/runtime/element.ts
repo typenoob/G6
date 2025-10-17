@@ -709,12 +709,15 @@ export class ElementController {
     const position = positionOf(model.getNodeData([id])[0]);
 
     // 重新计算数据 / Recalculate data
+    this.computeStyle('expand');
     const data = this.computeChangesAndDrawData({ stage: 'expand', animation });
+    if (!data) return;
+    
     this.createElements(data!.drawData.add, { animation: false, stage: 'expand', target: id });
+
     // 重置动画 / Reset animation
     this.context.animation!.clear();
-    this.computeStyle('expand');
-    if (!data) return;
+
     const { drawData } = data;
     const { update, add } = drawData;
 
