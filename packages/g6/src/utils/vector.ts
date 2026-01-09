@@ -13,16 +13,13 @@ const VECTOR_ZERO: Vector3 = [0, 0, 0];
  * @returns <zh/> 两个向量填充后的结果 | <en/> The result of padded vectors
  */
 function padVectors(a: Vector2 | Vector3, b: Vector2 | Vector3): [Vector2 | Vector3, Vector2 | Vector3] {
-  if ((isVector2(a) && isVector2(b)) || (isVector3(a) && isVector3(b))) {
+  if (a.length == b.length) {
     return [a, b];
   } else {
-    if (isVector3(a) && a[2] == 0) {
-      return [a, toVector3(b)];
+    if (isVector3(a) && a[2] !== 0 || isVector3(b) && b[2] !== 0) {
+      throw new Error(format('Vectors could not operate due to different dimensions.'));
     }
-    if (isVector3(b) && b[2] == 0) {
-      return [toVector3(a), b];
-    }
-    throw new Error(format('Vectors could not operate due to different dimesions.'));
+    return [toVector3(a), toVector3(b)];
   }
 }
 
@@ -77,7 +74,12 @@ export function multiply(a: Vector2 | Vector3, b: number | Vector2 | Vector3): V
 export function divide(a: Vector2 | Vector3, b: number | Vector2 | Vector3): Vector2 | Vector3 {
   if (typeof b === 'number') return a.map((v) => v / (b as number)) as Vector2 | Vector3;
   [a, b] = padVectors(a, b);
-  return a.map((v, i) => v / b[i]) as Vector2 | Vector3;
+  return a.map((v, i) => {
+    if (b[i] == 0) {
+      throw new Error(format('Vector could not be devived by zero'))
+    }
+    return v / b[i];
+  }) as Vector2 | Vector3;
 }
 
 /**
@@ -129,7 +131,7 @@ export function scale(a: Vector2 | Vector3, s: number): Vector2 | Vector3 {
  */
 export function distance(a: Vector2 | Vector3, b: Vector2 | Vector3): number {
   [a, b] = padVectors(a, b);
-  return Math.sqrt((a as number[]).reduce((sum, v, i) => sum + (v - b[i] || 0) ** 2, 0));
+  return Math.sqrt((a as number[]).reduce((sum, v, i) => sum + (v - b[i]) ** 2, 0));
 }
 
 /**
