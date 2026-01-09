@@ -139,7 +139,6 @@ export class CreateEdge extends BaseBehavior<CreateEdgeOptions> {
         style: {
           size: 1,
           visibility: 'hidden',
-          ports: [{ key: 'port-1', placement: [0.5, 0.5] }],
           x: sourceNode.style?.x,
           y: sourceNode.style?.y,
         },
