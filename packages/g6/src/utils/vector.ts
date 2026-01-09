@@ -13,7 +13,7 @@ const VECTOR_ZERO: Vector3 = [0, 0, 0];
  * @returns <zh/> 两个向量填充后的结果 | <en/> The result of padded vectors
  */
 function padVectors(a: Vector2 | Vector3, b: Vector2 | Vector3): [Vector2 | Vector3, Vector2 | Vector3] {
-  if (isVector2(a) && isVector2(b) || isVector3(a) && isVector3(b)) {
+  if ((isVector2(a) && isVector2(b)) || (isVector3(a) && isVector3(b))) {
     return [a, b];
   } else {
     if (isVector3(a) && a[2] == 0) {
@@ -22,7 +22,7 @@ function padVectors(a: Vector2 | Vector3, b: Vector2 | Vector3): [Vector2 | Vect
     if (isVector3(b) && b[2] == 0) {
       return [toVector3(a), b];
     }
-    throw new Error(format("Vectors could not operate due to different dimesions."));
+    throw new Error(format('Vectors could not operate due to different dimesions.'));
   }
 }
 
