@@ -76,7 +76,7 @@ export function divide(a: Vector2 | Vector3, b: number | Vector2 | Vector3): Vec
   [a, b] = padVectors(a, b);
   return a.map((v, i) => {
     if (b[i] == 0) {
-      throw new Error(format('Vector could not be devived by zero'));
+      throw new Error(format('Vector could not be divided by zero'));
     }
     return v / b[i];
   }) as Vector2 | Vector3;
